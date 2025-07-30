@@ -144,10 +144,45 @@ function loadSavedData() {
   }
 }
 
-// Скачивание PDF
-downloadButton.addEventListener('click', () => {
-  window.print();
-});
+downloadButton.addEventListener('click', async () => {
+  const button = document.getElementById('download-pdf');
+  button.textContent = 'Генерация PDF...';
+  button.disabled = true;
 
+  try {
+    // 1. Получаем HTML резюме
+    const htmlContent = document.querySelector('.container').outerHTML;
+
+    // 2. Формируем запрос для Gotenberg
+    const formData = new FormData();
+    formData.append('files', new Blob([htmlContent], { type: 'text/html' }), 'resume.html');
+    formData.append('marginTop', '20mm');
+    formData.append('marginBottom', '20mm');
+
+    // 3. Отправляем в Gotenberg (замените URL на ваш!)
+    const response = await fetch('https://gotenberg-pdf.onrender.com/convert/html', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) throw new Error('Ошибка генерации PDF');
+
+    // 4. Скачиваем PDF
+    const pdfBlob = await response.blob();
+    const downloadUrl = URL.createObjectURL(pdfBlob);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = 'resume.pdf';
+    link.click();
+    URL.revokeObjectURL(downloadUrl);
+
+  } catch (error) {
+    console.error(error);
+    alert('Ошибка: ' + error.message);
+  } finally {
+    button.textContent = 'Скачать PDF';
+    button.disabled = false;
+  }
+});
 // Загрузка сохраненных данных при запуске
 window.addEventListener('DOMContentLoaded', loadSavedData);
