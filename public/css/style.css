@@ -6,74 +6,75 @@
   font-family: 'Poppins', sans-serif;
 }
 
+
 /* Обновленные размеры шрифтов */
 .intro-hello {
-  font-size: 20px !important;
+  font-size: 20px;
 }
 
 .header-info h1 {
-  font-size: 24px !important;
+  font-size: 24px;
 }
 
 .intro-role {
-  font-size: 20px !important;
-  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .section-title {
-  font-size: 24px !important;
-  font-weight: 500 !important;
+  font-size: 24px;
+  font-weight: 500
 }
 
 .lang span {
-  font-size: 14px !important;
-  font-weight: 500 !important;
+  font-size: 14px;
+  font-weight: 500px;
 }
 
 .job .date {
-  font-size: 12px !important;
+  font-size: 12px;
   margin-bottom: 5px;
-  font-weight: 500 !important;
+  font-weight: 500;
 }
 
 .job h3 {
-  font-size: 20px !important;
-  font-weight: 500 !important;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .job-details {
-  font-size: 12px !important;
+  font-size: 12px;
 }
 
 .job ul {
-  font-size: 12px !important;
+  font-size: 12px;
 }
 
 .education-item .year {
-  font-weight: 500 !important;
-  font-size: 16px !important;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .education-item small {
-  font-size: 10px !important;
+  font-size: 10px;
 }
 
 .education-item .institution {
-  font-size: 14px !important;
+  font-size: 14px;
 }
 
 .interests span {
-  font-size: 14px !important;
+  font-size: 14px;
 }
 
 .contact p:first-child {
-  font-size: 14px !important;
-  font-weight: 500 !important;
+  font-size: 14px;
+  font-weight: 500;
   margin-bottom: 5px;
 }
 
 .contact p:last-child {
-  font-size: 10px !important;
+  font-size: 10px;
 }
 
 body {
@@ -137,6 +138,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 200px;
+  max-width: 200px;
   grid-column: 2;
 }
 
@@ -224,6 +226,8 @@ body {
 
 .job .date {
   margin-bottom: 15px;
+  max-width: 80%; /* Ограничение ширины даты */
+  word-break: break-word; /* Перенос длинных слов */
 }
 
 .job-header {
@@ -237,11 +241,15 @@ body {
 
 .job h3 {
   margin-bottom: 5px;
+  max-width: 90%; /* Ограничение ширины должности */
+  word-break: break-word; /* Перенос длинных слов */
 }
 
 .job-details {
   color: #5c5c5c;
   margin-bottom: 40px;
+  max-width: 90%; /* Ограничение ширины места работы */
+  word-break: break-word; /* Перенос длинных слов */
 }
 
 .job ul {
@@ -379,6 +387,8 @@ body {
 
 .education-item .year {
   margin-bottom: 5px;
+  max-width: 70%; /* Ограничение ширины даты */
+  word-break: break-word; /* Перенос длинных слов */
 }
 
 .education-item .degree {
@@ -573,7 +583,7 @@ body {
 }
 
 .contact { 
-  animation: fadeIn 0.6s ease-out 1.4s both; 
+  animation: fadeInUp 0.6s ease-out 1.4s both; 
 }
 
 /* Адаптивность для планшетов (820px - 1024px) */
@@ -936,6 +946,21 @@ body {
   transition: all 0.3s ease;
   padding: 2px 4px;
   border-radius: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  display: block;
+}
+
+/* Для многострочных элементов */
+.job ul li[data-editable],
+.education-item small[data-editable] {
+  white-space: normal;
+  text-overflow: clip;
+  overflow: visible;
+  word-break: break-word;
+  max-height: none;
 }
 
 .edit-mode [data-editable] {
@@ -943,6 +968,32 @@ body {
   border: 1px dashed #25d366;
   outline: none;
   cursor: text;
+  white-space: normal;
+  text-overflow: clip;
+  overflow: visible;
+  word-break: break-word;
+  max-height: none;
+}
+
+/* Ограничения для конкретных элементов */
+.job h3[data-editable] {
+  max-width: 90%;
+}
+
+.job .job-details[data-editable] {
+  max-width: 95%;
+}
+
+.lang span[data-editable] {
+  max-width: 100px;
+}
+
+.interests span[data-editable] {
+  max-width: 120px;
+}
+
+.contact strong[data-editable] {
+  max-width: 100%;
 }
 
 /* Ripple эффект */
@@ -1124,90 +1175,81 @@ body {
   }
   
   .contact { 
-    animation: fadeIn 0.6s ease-out 1.4s both; 
+    animation: fadeInUp 0.6s ease-out 1.4s both; 
   }
 }
 
-
-
-
-
-#pdf-clone {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 10000;
-  box-shadow: none;
-  transform: none;
-  opacity: 0;
-  pointer-events: none;
+/* Для всех заголовков должностей */
+.job h3 {
+  max-width: 100%; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Отключаем анимации только в клоне */
-#pdf-clone * {
-  animation: none !important;
-  transition: none !important;
+/* Для всех мест работы */
+.job .job-details {
+  max-width: 100%; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-#pdf-clone .hover-animate,
-#pdf-clone .header-info-container,
-#pdf-clone .languages-section,
-#pdf-clone .experience-section,
-#pdf-clone .tools-section,
-#pdf-clone .education-section,
-#pdf-clone .interests-section,
-#pdf-clone .contact,
-#pdf-clone .job,
-#pdf-clone .tools-category,
-#pdf-clone .education-item,
-#pdf-clone .interests span {
-  transform: none !important;
-  box-shadow: none !important;
+.job-header > div {
+  flex: 0 0 40%;
+  min-width: 0; /* Важно для правильного обрезания текста */
 }
 
-#pdf-clone .avatar-container img:hover,
-#pdf-clone .job:hover,
-#pdf-clone .tools-category:hover,
-#pdf-clone .education-item:hover,
-#pdf-clone .interests span:hover,
-#pdf-clone .contact:hover {
-  transform: none !important;
-  box-shadow: none !important;
+.job ul {
+  list-style: disc inside;
+  flex: 1;
+  min-width: 0; /* Важно для правильного обрезания текста */
 }
 
-/* Гарантия видимости выбранных элементов в клоне */
-#pdf-clone .job.green .most-btn,
-#pdf-clone .education-item.liked .like-btn {
-  opacity: 1 !important;
-  visibility: visible !important;
+.education-item .year {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-#pdf-clone .job.green,
-#pdf-clone .education-item.liked {
-  transform: none !important;
-  box-shadow: none !important;
+.education-item .degree {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Корректное отображение цветов в клоне */
-#pdf-clone .job.green {
-  background: #28D979 !important;
+.education-item .institution {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-#pdf-clone .education-item.liked {
-  background: #28D979 !important;
+.education-item small {
+  /* Разрешаем перенос для тегов */
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Максимум 2 строки */
+  -webkit-box-orient: vertical;
 }
 
-#pdf-clone .contact {
-  background: #000 !important;
+.interests span {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
 }
 
-#pdf-clone .bar .fill {
-  background: #25d366 !important;
-}
-
-/* Гарантируем непрозрачность элементов в клоне */
-#pdf-clone .avatar-container img,
-#pdf-clone .contact {
-  opacity: 1 !important;
+/* Добавим в конец style.css */
+.force-ellipsis .job h3,
+.force-ellipsis .job .job-details,
+.force-ellipsis .education-item .year,
+.force-ellipsis .education-item .degree,
+.force-ellipsis .education-item .institution,
+.force-ellipsis .interests span {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: block !important;
 }
